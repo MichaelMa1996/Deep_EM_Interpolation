@@ -64,9 +64,7 @@ noise_mean = 0
 noise_std = 0.009
 
 # using 200bus data event 1
-train_data = pd.read_csv("C:\\Users\\zhihao's home\\downloads\\Input_Files_new_time_format (1)\\Input_Files_new_time_format\\Sample_datasets\\Dataset_for_supervised_learning\\Event1.csv")
-# Vm_data = pd.read_csv
-# train_data_2 =  pd.read_csv("C:\\Users\\zhihao's home\\Downloads\\testing.csv")
+train_data = pd.read_csv("Event1.csv")
 Dataset0 = train_data.iloc[:,1:-3].values
 
 #add noise fron above so that it has uniform noise before any treament
@@ -161,7 +159,7 @@ for iter in range(iteration_step):
         new_Y_train = torch.cat((y_train_total.float().clone(),y_test_predict_tensor.float().clone()))
 
         #load_saved_model
-        state = torch.load("F:/2021_DOE_CPD/EM_DNN_MODEL/model"+str(iter)+".pth")
+        state = torch.load("model"+str(iter)+".pth")
         model = network()
         model.load_state_dict(state['model'])
 
@@ -223,7 +221,7 @@ for iter in range(iteration_step):
         'model': model.state_dict(),
         'optimizer': optimizer.state_dict()
     }
-    model_save_path = "F:/2021_DOE_CPD/EM_DNN_MODEL/model"+str(iter+1)+".pth"
+    model_save_path = "model"+str(iter+1)+".pth"
     torch.save(state, model_save_path)
     model.zero_grad()
     a =1
